@@ -1,1 +1,3 @@
 # JavaScript常用的工具库
+
+简单优雅的JavaScript工具库，文档完善中...
