@@ -1,23 +1,38 @@
-export interface DebounceFn<T extends (...args: any[]) => any> {
-  (...args: Parameters<T>): ReturnType<T> | void
+export interface AnyFn {
+  (...args: any): any
 }
 
-export function debounce<T extends (...args: any[]) => any>(fn: T, delay: number): DebounceFn<T> {
+export interface DebounceFn<T extends AnyFn> {
+  (this: any, ...args: Parameters<T>): ReturnType<T> | void
+}
+
+export interface ThrottleFn<T extends AnyFn> extends DebounceFn<T> {}
+
+export function debounce<T extends AnyFn>(fn: T, delay: number): DebounceFn<T> {
   let timer: number | undefined
-  return (...args) => {
-    if(timer !== undefined) {
-      clearTimeout(timer)
-    }
+  return function (...args) {
+    clearTimeout(timer)
     timer = setTimeout(() => {
-      fn(...args)
+      fn.call(this, ...args)
       timer = undefined
     }, delay)
   }
 }
 
+export function throttle<T extends AnyFn>(fn: T, delay: number): ThrottleFn<T> {
+  let lastTime = 0
+  return function (...args) {
+    const curTime = Date.now()
+    if(!lastTime || curTime - lastTime > delay) {
+      lastTime = Date.now()
+      fn.call(this, ...args)
+    }
+  }
+}
+
 export function setupCounter(element: HTMLButtonElement) {
   let counter = 0
-  const setCounter = debounce(() => {
+  const setCounter = throttle(() => {
     element.innerHTML = `count is ${counter++}`
   }, 300)
   element.addEventListener('click', () => setCounter())
