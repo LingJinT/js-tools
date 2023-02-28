@@ -24,8 +24,8 @@ export function throttle<T extends AnyFn>(fn: T, delay: number): ThrottleFn<T> {
   return function (...args) {
     const curTime = Date.now()
     if(!lastTime || curTime - lastTime > delay) {
-      lastTime = Date.now()
       fn.call(this, ...args)
+      lastTime = Date.now()
     }
   }
 }
