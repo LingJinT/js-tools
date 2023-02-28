@@ -39,3 +39,4 @@ change-template: '* $TITLE (#$NUMBER) @$AUTHOR'
 template: |
   ## What’s Changed
   $CHANGES
+commitish: 'refs/heads/main'
