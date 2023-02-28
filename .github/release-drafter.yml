@@ -39,6 +39,3 @@ change-template: '* $TITLE (#$NUMBER) @$AUTHOR'
 template: |
   ## What’s Changed
   $CHANGES
-Terms
-Privacy
-Security
