@@ -1,5 +1,3 @@
-export * as eHub from './eHub'
-
 export interface AnyFn {
   (...args: any): any
 }
