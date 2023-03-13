@@ -1,6 +1,6 @@
 {
-  "name": "@LingJinT/js-tools",
-  "version": "0.0.0",
+  "name": "tiny-js-tools",
+  "version": "0.0.2",
   "type": "module",
   "files": [
     "dist",
