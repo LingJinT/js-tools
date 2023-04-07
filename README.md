@@ -5,4 +5,4 @@
 ## 待完成
 1. Array.prototype.reduce
 
-2. 
+2. curry
