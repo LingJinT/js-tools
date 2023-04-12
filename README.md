@@ -6,3 +6,5 @@
 1. Array.prototype.reduce
 
 2. curry
+
+3. promise A+
