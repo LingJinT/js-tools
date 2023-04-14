@@ -1,7 +1,7 @@
 import './style.css'
 import typescriptLogo from './typescript.svg'
 import viteLogo from './vite.svg';
-import { setupCounter } from '../lib/main'
+import { debounce, reduceHack, throttle } from '../lib/main'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -13,7 +13,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </a>
     <h1>Vite + TypeScript</h1>
     <div class="card">
-      <button id="counter" type="button"></button>
+      <button id="debounce" type="button"></button>
+      <button id="throttle" type="button"></button>
+      <button id="reduce" type="button"></button>
     </div>
     <p class="read-the-docs">
       Click on the Vite and TypeScript logos to learn more
@@ -21,4 +23,27 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   </div>
 `
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+function _debounce(element: HTMLButtonElement) {
+  const TEST_ARR = [1, 2, 3];
+  reduceHack(TEST_ARR);
+  let counter = TEST_ARR.reduce((a, b) => a + b);
+  const setCounter = debounce(() => {
+    element.innerHTML = `count is ${counter++}`;
+  }, 300);
+  element.addEventListener("click", () => setCounter());
+  setCounter();
+}
+
+function _throttle(element: HTMLButtonElement) {
+  const TEST_ARR = [1, 2, 3];
+  reduceHack(TEST_ARR);
+  let counter = TEST_ARR.reduce((a, b) => a + b, 6);
+  const setCounter = throttle(() => {
+    element.innerHTML = `count is ${counter++}`;
+  }, 300);
+  element.addEventListener("click", () => setCounter());
+  setCounter();
+}
+
+_debounce(document.querySelector<HTMLButtonElement>('#debounce')!)
+_throttle(document.querySelector<HTMLButtonElement>('#throttle')!)
