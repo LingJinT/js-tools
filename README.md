@@ -8,9 +8,9 @@
 
 ### throttle
 
-## 待完成
 ### Array.prototype.reduce
 
+## 待完成
 ### curry
 
 ### promise A+

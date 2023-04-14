@@ -1,9 +1,9 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from './vite.svg';
-import { debounce, reduceHack, throttle } from '../lib/main'
+import "./style.css";
+import typescriptLogo from "./typescript.svg";
+import viteLogo from "./vite.svg";
+import { debounce, reduceHack, throttle, curry } from "../lib/main";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="${viteLogo}" class="logo" alt="Vite logo" />
@@ -21,7 +21,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       Click on the Vite and TypeScript logos to learn more
     </p>
   </div>
-`
+`;
 
 function _debounce(element: HTMLButtonElement) {
   const TEST_ARR = [1, 2, 3];
@@ -35,9 +35,13 @@ function _debounce(element: HTMLButtonElement) {
 }
 
 function _throttle(element: HTMLButtonElement) {
-  const TEST_ARR = [1, 2, 3];
-  reduceHack(TEST_ARR);
-  let counter = TEST_ARR.reduce((a, b) => a + b, 6);
+  function sum(a, b, c) {
+    return a + b + c;
+  }
+  let counter = curry(sum)(1)(2)(3);
+  // const TEST_ARR = [1, 2, 3];
+  // reduceHack(TEST_ARR);
+  // let counter = TEST_ARR.reduce((a, b) => a + b, 6);
   const setCounter = throttle(() => {
     element.innerHTML = `count is ${counter++}`;
   }, 300);
@@ -45,5 +49,5 @@ function _throttle(element: HTMLButtonElement) {
   setCounter();
 }
 
-_debounce(document.querySelector<HTMLButtonElement>('#debounce')!)
-_throttle(document.querySelector<HTMLButtonElement>('#throttle')!)
+_debounce(document.querySelector<HTMLButtonElement>("#debounce")!);
+_throttle(document.querySelector<HTMLButtonElement>("#throttle")!);
