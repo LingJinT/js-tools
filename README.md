@@ -3,14 +3,13 @@
 简单优雅的JavaScript工具库，文档完善中...
 
 ## 已完成
-
 ### debounce
 
 ### throttle
 
 ### Array.prototype.reduce
 
-## 待完成
 ### curry
 
+## 待完成
 ### promise A+
