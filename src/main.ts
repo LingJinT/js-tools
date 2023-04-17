@@ -15,7 +15,6 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     <div class="card">
       <button id="debounce" type="button"></button>
       <button id="throttle" type="button"></button>
-      <button id="reduce" type="button"></button>
     </div>
     <p class="read-the-docs">
       Click on the Vite and TypeScript logos to learn more
@@ -35,13 +34,11 @@ function _debounce(element: HTMLButtonElement) {
 }
 
 function _throttle(element: HTMLButtonElement) {
-  function sum(a, b, c) {
+  function sum(a: number, b: number, c: number) {
     return a + b + c;
   }
-  let counter = curry(sum)(1)(2)(3);
-  // const TEST_ARR = [1, 2, 3];
-  // reduceHack(TEST_ARR);
-  // let counter = TEST_ARR.reduce((a, b) => a + b, 6);
+  let counterFn = curry(sum);
+  let counter = counterFn(1, 2, 3)
   const setCounter = throttle(() => {
     element.innerHTML = `count is ${counter++}`;
   }, 300);

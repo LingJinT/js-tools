@@ -1,8 +1,5 @@
-// export default function curry(fn, args: any[] = []) {
-//   if(fn.length === args.length) {
-//     return fn.apply(args)
-//   }
-//   return function(...args2: any[]) {
-//     return curry.apply(this, args.concat(args2))
-//   }
-// }
+export default function curry(fn: Function) {
+  return function curried(this: unknown, ...args: any[]): any {
+    return fn.length <= args.length ? fn.apply(this, args) : curried.bind(this, ...args)
+  }
+}
