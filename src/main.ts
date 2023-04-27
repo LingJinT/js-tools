@@ -1,7 +1,8 @@
 import "./style.css";
 import typescriptLogo from "./typescript.svg";
 import viteLogo from "./vite.svg";
-import { debounce, reduceHack, throttle, curry } from "../lib/main";
+import { debounce, reduceHack, throttle, curry, Promise } from "../lib/main";
+import { OnFulfilled } from "../lib/tools/promise";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
@@ -15,6 +16,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     <div class="card">
       <button id="debounce" type="button"></button>
       <button id="throttle" type="button"></button>
+      <button id="promise" type="button"></button>
     </div>
     <p class="read-the-docs">
       Click on the Vite and TypeScript logos to learn more
@@ -46,5 +48,35 @@ function _throttle(element: HTMLButtonElement) {
   setCounter();
 }
 
+function _promise(element: HTMLButtonElement) {
+  let status = 'pending'
+  const setStatus: OnFulfilled<string, any> = (data) => {
+    console.log(data,'===');
+    element.innerHTML = data;
+    return new Promise((resolve, reject) => {
+      element.addEventListener('click', () => {
+        if(Math.random() > 0.5) {
+          resolve('resolve+')
+        }
+        else {
+          reject('reject+')
+        }
+      })
+    })
+  }
+  new Promise<string>((resolve, reject) => {
+    setStatus(status)
+    element.addEventListener('click', () => {
+      if(Math.random() > 0.5) {
+        resolve('resolve')
+      }
+      else {
+        reject('reject')
+      }
+    })
+  }).then(setStatus, setStatus).then(setStatus, setStatus)
+}
+
 _debounce(document.querySelector<HTMLButtonElement>("#debounce")!);
 _throttle(document.querySelector<HTMLButtonElement>("#throttle")!);
+_promise(document.querySelector<HTMLButtonElement>("#promise")!);

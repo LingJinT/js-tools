@@ -19,6 +19,7 @@
     "build": "tsc && vite build"
   },
   "devDependencies": {
+    "promises-aplus-tests": "^2.1.2",
     "typescript": "^4.9.4",
     "vite": "^4.0.4"
   }
